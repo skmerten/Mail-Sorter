@@ -1,0 +1,7 @@
+Filetype
+numpy
+opencv-python
+pandas
+Pillow
+PyMuPDF
+pytesseract

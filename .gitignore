@@ -1,0 +1,5 @@
+#ignore the PDFs
+*.pdf
+
+#ignore the DB
+*.db
