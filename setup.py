@@ -1,7 +1,8 @@
 import sqlite3
 con = sqlite3.connect("mailSort.db")
 cur = con.cursor()
-#cur.execute("CREATE TABLE folders(name, directory)")
+#cur.execute("CREATE TABLE folder(folderID INTEGER PRIMARY KEY, name NOT NULL, directory NOT NULL)")
+#cur.execute("CREATE TABLE words(word, folderID INTEGER NOT NULL, FOREIGN KEY (folderID) REFERENCES folder (folderID))")
 
 #data = [
 #    ("DMV", "C:\\Users\\skmer\\Desktop\\Mail_Sorter\\Mail-Sorter\\DMV"),

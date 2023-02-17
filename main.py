@@ -4,6 +4,7 @@ import glob
 import re
 import options
 import sqlite3
+import SQL
 #pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
 
 def generate_extract(pdfPath):
@@ -26,10 +27,25 @@ def unique_words(text):
 def extract_text(text):
     return unique_words(re.findall(r'\b[a-zA-Z]+\b', text))
 
-def main():
-    for page in generate_extract('example.pdf'):
-        print(extract_text(page))
+def compare_to_wordList(page, word_list):
+    match = {}
+    for folder in word_list:
+        comp = set(page).intersection(word_list[folder])
+        match[folder] = len(comp)
+        print("Page has " + str(round(len(comp) / len(page), 3)) + "% similarity to " + folder)
+    
+    return match
 
+
+def main():
+    con = sqlite3.connect("mailSort.db")
+    cur = con.cursor()
+
+    word_list = SQL.get_words(cur)
+    for page in generate_extract('example.pdf'):
+        print(compare_to_wordList(extract_text(page),word_list))
+
+    
 
 if __name__ == "__main__":
     main()
